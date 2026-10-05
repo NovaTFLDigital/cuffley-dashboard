@@ -9,6 +9,10 @@
 
 <style>
 
+/* =========================================================
+   GLOBAL
+========================================================= */
+
 * {
     box-sizing: border-box;
 }
@@ -17,8 +21,7 @@ html,
 body {
     margin: 0;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
     background: #050606;
 }
 
@@ -30,6 +33,7 @@ body {
 .board {
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 
     background:
         radial-gradient(
@@ -123,7 +127,7 @@ body {
     margin: 0;
 
     font-size: clamp(44px, 4.2vw, 82px);
-    line-height: 0.95;
+    line-height: .95;
 
     letter-spacing: 5px;
     font-weight: 700;
@@ -310,7 +314,6 @@ body {
 .service > div,
 .finsbury-section > div,
 .finsbury-train > div {
-
     color: #f6ad16;
 
     background-image:
@@ -371,28 +374,326 @@ body {
 .update-time {
     padding-left: 32px;
 
-    border-left:
-        1px solid rgba(213,150,23,.45);
+    border-left: 1px solid rgba(213,150,23,.45);
 }
 
 
 /* =========================================================
-   SMALLER SCREENS
+   MOBILE — PORTRAIT DEPARTURE BOARD
 ========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
+
+    html,
+    body {
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .board {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+    }
+
+    .topbar {
+        display: none;
+    }
+
+
+    /* HEADER */
 
     .departures-header {
-        min-height: 120px;
+        height: auto;
+        min-height: 0;
+
+        padding: 25px 20px 22px;
+
+        border-bottom: 1px solid #d59617;
     }
 
     .train-icon {
-        width: 90px;
-        min-width: 90px;
+        width: 61px;
+        min-width: 61px;
+        height: 66px;
+
+        padding-right: 16px;
+    }
+
+    .rail-dot-icon {
+        width: 42px;
+        height: 54px;
+
+        background-size: 3px 3px;
     }
 
     .heading {
-        padding-left: 30px;
+        padding-left: 18px;
+    }
+
+    .heading h1 {
+        font-size: 34px;
+        letter-spacing: 3px;
+        line-height: 1;
+    }
+
+    .heading h2 {
+        margin-top: 8px;
+
+        font-size: 19px;
+        letter-spacing: 3px;
+    }
+
+
+    /* REMOVE DESKTOP COLUMN HEADER */
+
+    .table-header {
+        display: none;
+    }
+
+
+    /* SERVICES */
+
+    .services {
+        display: block;
+        flex: none;
+    }
+
+    .service {
+        display: grid;
+
+        grid-template-columns:
+            76px
+            minmax(0, 1fr)
+            auto;
+
+        grid-template-areas:
+            "due destination destination"
+            "due platform expected";
+
+        gap: 5px 10px;
+
+        min-height: 94px;
+
+        padding: 14px 20px;
+
+        border-bottom: 1px solid #303232;
+
+        font-size: initial;
+        line-height: initial;
+    }
+
+    .service > div:first-child {
+        grid-area: due;
+
+        align-self: center;
+
+        font-size: 27px;
+        font-weight: 700;
+    }
+
+    .service .destination {
+        grid-area: destination;
+
+        padding: 0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        font-size: 23px;
+        line-height: 1.15;
+        font-weight: 700;
+    }
+
+    .service .platform {
+        grid-area: platform;
+
+        text-align: left;
+
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .service .platform::before {
+        content: "Plat ";
+    }
+
+    .service .expected {
+        grid-area: expected;
+
+        padding: 0;
+
+        justify-self: end;
+
+        font-size: 16px;
+        font-weight: 600;
+
+        white-space: nowrap;
+    }
+
+    .services .service:last-child {
+        border-bottom: 1px solid #d59617;
+    }
+
+
+    /* FINSBURY PARK */
+
+    .finsbury-section {
+        height: auto;
+        min-height: 0;
+
+        display: block;
+
+        padding: 22px 20px 18px;
+
+        border-bottom: 1px solid #d59617;
+    }
+
+    .finsbury-title {
+        display: block;
+
+        margin-bottom: 15px;
+    }
+
+    .finsbury-name {
+        font-size: 25px;
+        letter-spacing: 2px;
+    }
+
+    .finsbury-subtitle {
+        margin-top: 5px;
+
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    .finsbury-train {
+        display: grid;
+
+        grid-template-columns:
+            80px
+            75px
+            1fr;
+
+        min-height: 54px;
+
+        padding: 0;
+
+        border-left: 0;
+        border-top: 1px solid #303232;
+    }
+
+    .finsbury-time {
+        font-size: 25px;
+    }
+
+    .finsbury-platform {
+        font-size: 15px;
+
+        text-align: left;
+    }
+
+    .finsbury-status {
+        font-size: 15px;
+
+        text-align: right;
+    }
+
+
+    /* FOOTER */
+
+    .footer {
+        height: auto;
+        min-height: 0;
+
+        display: block;
+
+        padding: 18px 20px 24px;
+    }
+
+    .footer-note {
+        display: none;
+    }
+
+    .footer-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .update-time {
+        padding-left: 0;
+
+        border-left: 0;
+    }
+
+
+    /* FINER DOT MATRIX FOR MOBILE */
+
+    .led,
+    .service > div,
+    .finsbury-section > div,
+    .finsbury-train > div {
+        background-size: 3px 3px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .departures-header {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .heading h1 {
+        font-size: 30px;
+    }
+
+    .heading h2 {
+        font-size: 17px;
+    }
+
+    .service {
+        grid-template-columns:
+            68px
+            minmax(0, 1fr)
+            auto;
+
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .service > div:first-child {
+        font-size: 24px;
+    }
+
+    .service .destination {
+        font-size: 20px;
+    }
+
+    .finsbury-section {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .finsbury-train {
+        grid-template-columns:
+            72px
+            67px
+            1fr;
     }
 }
 
@@ -407,8 +708,6 @@ body {
 
     <div class="topbar"></div>
 
-
-    <!-- TITLE -->
 
     <section class="departures-header">
 
@@ -433,8 +732,6 @@ body {
     </section>
 
 
-    <!-- DEPARTURES -->
-
     <main class="departure-table">
 
 
@@ -455,15 +752,11 @@ body {
         </div>
 
 
-        <!-- NEXT 6 -->
-
         <div
             class="services"
             id="services">
         </div>
 
-
-        <!-- NEXT 2 TO FINSBURY PARK -->
 
         <div class="finsbury-section">
 
@@ -475,7 +768,7 @@ body {
                 </div>
 
                 <div class="finsbury-subtitle">
-                    Next direct trains
+                    NEXT DIRECT TRAINS
                 </div>
 
             </div>
@@ -527,15 +820,11 @@ body {
     </main>
 
 
-    <!-- FOOTER -->
-
     <footer class="footer">
 
         <div class="footer-note">
-
             Next departures from Cuffley.
             Platforms may change.
-
         </div>
 
 
@@ -569,10 +858,6 @@ const API_URL =
     'https://cuffley-trains-api.pedro-ribeiro-2d9.workers.dev/';
 
 
-// =========================================================
-// LOAD DATA
-// =========================================================
-
 async function loadDepartures() {
 
     try {
@@ -590,10 +875,8 @@ async function loadDepartures() {
             );
         }
 
-
         const data =
             await response.json();
-
 
         if (!Array.isArray(data.departures)) {
             throw new Error(
@@ -601,21 +884,17 @@ async function loadDepartures() {
             );
         }
 
-
         renderDepartures(
             data.departures
         );
-
 
         renderFinsbury(
             data.finsburyPark
         );
 
-
         updateTimestamp(
             data.lastUpdated
         );
-
 
     } catch (error) {
 
@@ -628,23 +907,16 @@ async function loadDepartures() {
 }
 
 
-// =========================================================
-// MAIN DEPARTURES
-// =========================================================
-
 function renderDepartures(departures) {
 
     const services =
         document.getElementById('services');
 
-
     services.innerHTML = '';
-
 
     departures
         .slice(0, 6)
         .forEach(train => {
-
 
             const row =
                 document.createElement('div');
@@ -695,16 +967,11 @@ function renderDepartures(departures) {
             row.appendChild(platform);
             row.appendChild(expected);
 
-
             services.appendChild(row);
 
         });
 }
 
-
-// =========================================================
-// FINSBURY PARK
-// =========================================================
 
 function renderFinsbury(trains) {
 
@@ -712,12 +979,10 @@ function renderFinsbury(trains) {
         return;
     }
 
-
     renderFinsburyTrain(
         'finsbury1',
         trains[0]
     );
-
 
     renderFinsburyTrain(
         'finsbury2',
@@ -731,18 +996,15 @@ function renderFinsburyTrain(id, train) {
     const container =
         document.getElementById(id);
 
-
     const time =
         container.querySelector(
             '.finsbury-time'
         );
 
-
     const platform =
         container.querySelector(
             '.finsbury-platform'
         );
-
 
     const status =
         container.querySelector(
@@ -752,14 +1014,9 @@ function renderFinsburyTrain(id, train) {
 
     if (!train) {
 
-        time.textContent =
-            '--:--';
-
-        platform.textContent =
-            'Plat -';
-
-        status.textContent =
-            'No service';
+        time.textContent = '--:--';
+        platform.textContent = 'Plat -';
+        status.textContent = 'No service';
 
         return;
     }
@@ -768,20 +1025,14 @@ function renderFinsburyTrain(id, train) {
     time.textContent =
         train.due || '--:--';
 
-
     platform.textContent =
         'Plat ' +
         (train.platform || '-');
-
 
     status.textContent =
         train.expected || 'On time';
 }
 
-
-// =========================================================
-// LAST SUCCESSFUL UPDATE
-// =========================================================
 
 function updateTimestamp(value) {
 
@@ -789,14 +1040,10 @@ function updateTimestamp(value) {
         return;
     }
 
-
     const updated =
         new Date(value);
 
-
-    if (Number.isNaN(
-        updated.getTime()
-    )) {
+    if (Number.isNaN(updated.getTime())) {
         return;
     }
 
@@ -825,22 +1072,13 @@ function updateTimestamp(value) {
 
 
     document
-        .getElementById(
-            'lastUpdated'
-        )
+        .getElementById('lastUpdated')
         .textContent =
             date + ' · ' + time;
 }
 
 
-// =========================================================
-// START
-// =========================================================
-
 loadDepartures();
-
-
-// Refresh every 60 seconds.
 
 setInterval(
     loadDepartures,
